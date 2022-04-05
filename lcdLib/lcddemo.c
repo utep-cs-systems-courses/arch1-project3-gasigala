@@ -89,7 +89,7 @@ void trapezoid(){
     drawPixel(fCol +a, fRow +lenght , COLOR_GREEN);//bottom side
   }
   
-  
+  // we dont mess with the row since we will be decrementing this time 
   for(a =0 ;a< lenght; a++){
     drawPixel(fCol +a, fRow -a, COLOR_RED);
     drawPixel(fCol +a, fRow, COLOR_PURPLE);
