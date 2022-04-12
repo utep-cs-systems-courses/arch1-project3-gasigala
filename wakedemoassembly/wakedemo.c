@@ -28,12 +28,13 @@ switch_init()			/* setup switch */
 
 int switches = 0;
 
-void
+/*void
 switch_interrupt_handler()
 {
   char p2val = switch_update_interrupt_sense();
   switches = ~p2val & SWITCHES;
 }
+*/
 
 
 // axis zero for col, axis 1 for row

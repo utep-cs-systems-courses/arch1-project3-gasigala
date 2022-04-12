@@ -1,3 +1,4 @@
+#include "switches.h"
 void
 switch_interrupt_handler()
 {
