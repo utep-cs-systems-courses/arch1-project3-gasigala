@@ -11,13 +11,13 @@ all:wakedemo-c.elf wakedemo-s.elf
 
 #additional rules for files
 wakedemo-c.elf: ${COMMON_OBJECTS} wakedemo.o wdt_handler.o switch_interrupt_handler_c.o
-	${CC} ${CFLAGS} ${LDFLAGS} -o $@ $^ -lTimer -lLcd ../lib/libTimer.a 
+	${CC} ${CFLAGS} ${LDFLAGS} -o $@ $^ -lTimer -lLcd 
 
 load-c: wakedemo-c.elf
 	msp430loader.sh $^ 
 
 wakedemo-s.elf: ${COMMON_OBJECTS} wakedemo.o wdt_handler.o switch_interrupt_handler_s.o
-	${CC} ${CFLAGS} ${LDFLAGS} -o $@ $^ -lTimer -lLcd ../lib/libTimer.a
+	${CC} ${CFLAGS} ${LDFLAGS} -o $@ $^ -lTimer -lLcd
 
 load-s: wakedemo-s.elf
 	msp430loader.sh $^

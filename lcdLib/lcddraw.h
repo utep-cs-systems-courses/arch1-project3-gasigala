@@ -1,4 +1,4 @@
-/** \file lcddraw.h
+/** \file lcddraAw.h
  *  \brief Adapted from RobG's EduKit
  */
 
@@ -58,8 +58,8 @@ void drawChar5x7(u_char col, u_char row, char c,
  *  \param height Height of rectangle
  *  \param colorBGR Color of rectangle in BGR
  */
-void drawRectOutline(u_char colMin, u_char rowMin, u_char width, u_char height,
-		     u_int colorBGR);
-#endif // included
+void drawRectOutline(u_char colMin, u_char rowMin, u_char width, u_char height,u_int colorBGR);
 
+void draw_eye();
+#endif // included
 
