@@ -3,6 +3,8 @@
 #include "lcdutils.h"
 #include "lcddraw.h"
 #include "switches.h"
+#include "buzzer.h"
+#include "buzzer_notes.h"
 /*
 char
 switch_update_interrupt_sense()
@@ -43,11 +45,13 @@ short velocity[2] = {3,8}, limits[2] = {screenWidth-36, screenHeight-8};
 
 short redrawScreen = 1;
 u_int controlFontColor = COLOR_GREEN;
-
+char idx =0;
 void wdt_c_handler()
 {
   static int secCount = 0;
-
+  if (switches & SW2){
+    play_song_1();
+  }
   secCount ++;
   if (secCount >= 500) {		// 10/sec
     secCount = 0;
@@ -56,7 +60,7 @@ void wdt_c_handler()
 }
 
 void update_shape();
-void draw_eye(int fCol, int frow);
+void draw_eye(int fCol, int frow, int color);
 void draw_sun();
 void draw_background();
 void draw_background2();
@@ -91,14 +95,16 @@ int sw = 0;
 int current_state = 0;
 int fRow = 50;
 int fCol = 50;
-
+int color[] = {COLOR_BLACK, COLOR_GREEN};
 
 //im gonna add 
 int jumpTable(int sw) {
   switch (sw) {
   case 1:
+    idx = 0;
     break;
   case 2:
+    idx = 1;
     break;
   case 3:
     break;
@@ -142,7 +148,7 @@ update_shape()
   //sw =0;
   for (int i = 0; i < 10; i++) {
     fRow += 10;
-    draw_eye(fCol, fRow);
+    draw_eye(fCol, fRow, color[idx]);
     if(fRow >= screenHeight){
       fRow = 50;
     }
@@ -152,7 +158,7 @@ update_shape()
 
 
 void
-draw_eye(int fCol, int fRow){
+draw_eye(int fCol, int fRow, int color){
   // clearScreen(COLOR_WHITE);
   fillRectangle(fCol -12, fRow-12, 48, 48, COLOR_SKY_BLUE);
   int a =0,  lenght = 24;
@@ -160,16 +166,18 @@ draw_eye(int fCol, int fRow){
   int j = 0;
   for( a =0; a < lenght; a++){
     //draw previous position as sky_blue
-    drawPixel(fCol+ a, fRow-10, COLOR_SKY_BLUE);
-    drawPixel(fCol+a, fRow+1-10, COLOR_SKY_BLUE);
+    /* drawPixel(fCol+ a, fRow-10, COLOR_SKY_BLUE);
+       drawPixel(fCol+a, fRow+1-10, COLOR_SKY_BLUE); */
     //top line of eye
-    drawPixel(fCol+ a, fRow, COLOR_BLACK);
+    drawPixel(fCol+ a, fRow, color);
     drawPixel(fCol+a, fRow+1, COLOR_RED);
     // draw previous position as sky blue
+    /*
     drawPixel(fCol +a, fRow+ lenght+1-10, COLOR_SKY_BLUE);
     drawPixel(fCol+a, fRow+ lenght-10, COLOR_SKY_BLUE);
+    */
     //botom line of eye
-    drawPixel(fCol +a, fRow+ lenght+1, COLOR_BLACK);
+    drawPixel(fCol +a, fRow+ lenght+1, color);
     drawPixel(fCol+a, fRow+ lenght, COLOR_RED);
   }
   //slanted lines
@@ -222,41 +230,26 @@ void
 draw_background(){
   clearScreen(COLOR_SKY_BLUE); 
   draw_sun();
-  //fillRectangle(0, 80, 128, 160/2, COLOR_ORANGE_RED);
-  //this makes the road marks in screen one
-  /* for(int a = 0; a < 128; a+=24){
-    for(int b =0; b <8; b++){
-      drawPixel(a+ b, 160 - 160/4, COLOR_BLACK);
-      drawPixel(a+b, (160 - 160/4)+ 1, COLOR_BLACK);
-      drawPixel(a+b, (160 - 160/4)+ 2, COLOR_BLACK);
-      drawPixel(a+b, (160 - 160/4)+ 3, COLOR_BLACK);
-    }
-  }
-  if(sw == 1){
-    drawString5x7(4,100, "one", COLOR_WHITE, COLOR_BLUE);
-  }
-  else if(sw == 2){
-    drawString5x7(4, 100, "two", COLOR_WHITE, COLOR_BLUE);
-  }
-  */
+
 }
   
 
 void
 draw_background2(){
   clearScreen(COLOR_SKY_BLUE);
+  draw_sun();
   // fillRectangle(0, 80, 128, 160/2, COLOR_ORANGE_RED);
   for(int a = 24; a< 32; a++){
-    for ( int b = 50; b < 120; b++){
+    for ( int b = 48; b < 120; b++){
       drawPixel(a, b, COLOR_BLACK);
       drawPixel(a +70, b, COLOR_BLACK);
     }
   }
-  for (int a =0; a < 70; a++){
-    drawPixel(a +24, 50, COLOR_BLACK);
-    drawPixel(a +24, 51, COLOR_BLACK);
-    drawPixel(a +24, 51, COLOR_BLACK);
-    drawPixel(a +24, 51, COLOR_BLACK);
+  for (int a =0; a < 78; a++){
+    drawPixel(a +24, 44, COLOR_BLACK);
+    drawPixel(a +24, 45, COLOR_BLACK);
+    drawPixel(a +24, 46, COLOR_BLACK);
+    drawPixel(a +24, 47, COLOR_BLACK);
   }
 }
 

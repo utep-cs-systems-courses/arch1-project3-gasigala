@@ -2,7 +2,7 @@
 #include "libTimer.h"
 #include "buzzer.h"
 #include "buzzer_notes.h"
-
+ 
 void buzzer_init()
 {
     /* 
@@ -28,16 +28,8 @@ void buzzer_set_period(short cycles) /* buzzer clock = 2MHz.  (period of 1k resu
 void buzzer_stop()
 {
   buzzer_set_period(0);
-  buzzer_state = BUZZER_OFF;
 }
 
-
-void update_buzzer(){
-  if(buzzer_state != BUZZER_OFF){
-    return;
-  }
-  buzzer_stop();
-}
 
 void play_song_1()
 {

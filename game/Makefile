@@ -9,13 +9,13 @@ AS		= msp430-elf-gcc -mmcu=${CPU} -c
 
 all:gameDemo-c.elf gameDemo-s.elf 
 
-gameDemo-c.elf: ${COMMON_OBJECTS} gameDemo.o wdt_handler.o switch_interrupt_handler-c.o switch_update_interrupt_sense-c.o
+gameDemo-c.elf: ${COMMON_OBJECTS} gameDemo.o wdt_handler.o switch_interrupt_handler-c.o switch_update_interrupt_sense-c.o buzzer.o
 		${CC} ${CFLAGS} ${LDFLAGS} -o $@ $^ -lTimer -lLcd
 
 load-c: gameDemo-c.elf
 	msp430loader.sh $^
 
-gameDemo-s.elf: ${COMMON_OBJECTS} gameDemo.o wdt_handler.o switch_interrupt_handler-s.o switch_update_interrupt_sense-s.o
+gameDemo-s.elf: ${COMMON_OBJECTS} gameDemo.o wdt_handler.o switch_interrupt_handler-s.o switch_update_interrupt_sense-s.o buzzer.o
 		${CC} ${CFLAGS} ${LDFLAGS} -o $@ $^ -lTimer -lLcd 
 
 load-s: gameDemo-s.elf
