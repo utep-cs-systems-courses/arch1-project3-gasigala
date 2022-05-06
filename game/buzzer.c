@@ -33,7 +33,7 @@ void buzzer_stop()
 
 void play_song_1()
 {
-  static char curr_note = 0;
+  static char curr_note =0;
   static int  ledBool =0;
   // All notes of song, 0s are for break in between notes
   int notes[47] = {D5, A4, D5, A4, D5, A4, D5, B4_FLAT, D5, B4_FLAT, D5, B4_FLAT, D5, B4_FLAT,A4, A3, D4, C4_SHARP, D4, E4, F4_SHARP, D4, D4, C4_SHARP, C4_SHARP, B3, D4, D4, D4, E4, D4, D4, D4, 0, 0, G4, G4, F4_SHARP, D4, D4, D4, A3, D4, C4_SHARP, D4, E4, F4_SHARP };

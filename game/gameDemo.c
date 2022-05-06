@@ -49,11 +49,14 @@ char idx =0;
 void wdt_c_handler()
 {
   static int secCount = 0;
-  if (switches & SW2){
-    play_song_1();
+  if (switches & SW3){
+    //play_song_1();
+  }
+  else{
+    buzzer_stop();
   }
   secCount ++;
-  if (secCount >= 500) {		// 10/sec
+  if (secCount >= 25) {		// 10/sec
     secCount = 0;
     redrawScreen = 1;
   }
@@ -74,6 +77,7 @@ void main()
   configureClocks();
   lcd_init();
   switch_init();
+  buzzer_init();
   
   enableWDTInterrupts();      /**< enable periodic interrupt */
   or_sr(0x8);	              /**< GIE (enable interrupts) */
@@ -138,6 +142,10 @@ update_shape()
     sw = 2;
   }
   if (three)
+    if(current_state != sw){
+      play_song_1();
+      current_state =3;
+    }
     sw = 3;
   if (four) {
     sw = 4;
