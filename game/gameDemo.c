@@ -3,6 +3,7 @@
 #include "lcdutils.h"
 #include "lcddraw.h"
 #include "switches.h"
+#include "gameDemo.h"
 #include "buzzer.h"
 #include "buzzer_notes.h"
 /*
@@ -46,15 +47,16 @@ short velocity[2] = {3,8}, limits[2] = {screenWidth-36, screenHeight-8};
 short redrawScreen = 1;
 u_int controlFontColor = COLOR_GREEN;
 char idx =0;
+char text_bool = 0;
 void wdt_c_handler()
 {
-  static int secCount = 0;
-  if (switches & SW3){
-    //play_song_1();
+  if(switches & SW3){
+
   }
   else{
     buzzer_stop();
   }
+  static int secCount = 0;
   secCount ++;
   if (secCount >= 25) {		// 10/sec
     secCount = 0;
@@ -102,6 +104,7 @@ int fCol = 50;
 int color[] = {COLOR_BLACK, COLOR_GREEN};
 
 //im gonna add 
+/*
 int jumpTable(int sw) {
   switch (sw) {
   case 1:
@@ -116,7 +119,7 @@ int jumpTable(int sw) {
     break;
   }
 }
-
+*/
 
 void
 update_shape()
@@ -129,31 +132,36 @@ update_shape()
   if (one){
     if(current_state != sw){
       draw_background();
-      //draw_eye(50, 50);
       current_state = 1;
     }
     sw = 1;
+    jumpTable(sw);
   }
   if (two){
     if(current_state != sw){
-      draw_background2();
-      current_state = 2;
+    draw_background2();
+    current_state = 2;
     }
-    sw = 2;
+    sw =2;
+    jumpTable(sw);
   }
   if (three)
-    if(current_state != sw){
       play_song_1();
-      current_state =3;
-    }
     sw = 3;
   if (four) {
     sw = 4;
-    drawString5x7(4,100, "AHHHHH", COLOR_WHITE, COLOR_BLUE);
+    if(!text_bool){
+      drawString5x7(30,20, "where do i go?", COLOR_BLACK, COLOR_BLUE);
+      text_bool =1;
+    }
+    else{
+      fillRectangle(30, 20, 85, 8, COLOR_SKY_BLUE);
+      text_bool =0;
+    }
   }
+    
 
-  jumpTable(sw);
-  //sw =0;
+  
   for (int i = 0; i < 10; i++) {
     fRow += 10;
     draw_eye(fCol, fRow, color[idx]);
