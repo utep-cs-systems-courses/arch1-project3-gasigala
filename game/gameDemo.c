@@ -46,7 +46,7 @@ short velocity[2] = {3,8}, limits[2] = {screenWidth-36, screenHeight-8};
 
 short redrawScreen = 1;
 u_int controlFontColor = COLOR_GREEN;
-char idx =0;
+int  idx =0;
 char text_bool = 0;
 void wdt_c_handler()
 {

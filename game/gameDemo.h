@@ -3,7 +3,7 @@
 
 #include <msp430.h>
 
-extern char idx;
+extern int idx;
 extern int  color[];
 
 extern int jumpTable(int sw);

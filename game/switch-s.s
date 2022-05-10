@@ -11,7 +11,8 @@ cases:
 
 jumpTable:
 	cmp #3, r12
-	jc default		;if carry is set that means it did not borrow which means we passed somethin greater than 2
+	jhs default
+	add r12, r12 		;if carry is set that means it did not borrow which means we passed somethin greater than 2
 	mov cases(r12), r0
 
 case1:

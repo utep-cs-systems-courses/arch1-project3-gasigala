@@ -6,7 +6,7 @@ int jumpTable(int sw) {
     idx = 0;
     break;
   case 2:
-    idx = 1;
+     idx = 1;
     break;
   case 3:
     break;
